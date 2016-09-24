@@ -1,0 +1,18 @@
+Source: network-check
+Section: utils
+Priority: extra
+Maintainer: Yann Büchau <yann.buechau@web.de>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.2
+Homepage: https://github.com/nobodyinperson/network-check
+Vcs-Browser: https://github.com/nobodyinperson/network-check
+Vcs-Git: https://github.com/nobodyinperson/network-check.git
+
+Package: network-check
+Architecture: all
+Depends: ${misc:Depends}
+Conflicts: network-check
+Replaces: network-check
+Description: simple tool to troubleshoot network connectivity problems
+ network-check is a simple tool that checks the various network layers for
+ connectivity.
