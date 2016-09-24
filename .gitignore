@@ -1,3 +1,6 @@
+# perl6
+.precomp
+
 # debian packaging
 debian/network-check
 debian/*.substvars
