@@ -34,6 +34,10 @@ our sub message_critical (Str $text) is export {
     say sprintf('[ '~coloured('red','%4s')~' ] ','CRIT') ~ $text
     }
 
+our sub message_info (Str $text) is export {
+    say sprintf('[ '~coloured('white','%4s')~' ] ','INFO') ~ $text
+    }
+
 our sub header {
     "*****************************************\n" ~
     "***   This is "~coloured('bold','network-check')~" v0.0.1    ***\n" ~

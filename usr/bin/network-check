@@ -6,9 +6,18 @@ BEGIN { $SANDBOX = "$0/../../" if $?FILE ~~ m| ^^ (.*) '/' <-[/]>+ $| }
 use lib "$SANDBOX/usr/lib/network-check/perl"; # use this library folder
 use NetworkCheck;
 
-say NetworkCheck::header;
+# main subroutine
+# handles command line arguments nicely
+sub MAIN (Bool :$wait = False) {
+    say NetworkCheck::header;
 
-message_ok "Startup!";
-message_problem "There is a problem...";
-message_critical "This is critical!";
+    message_ok "Startup!";
+    message_problem "There is a problem...";
+    message_critical "This is critical!";
 
+    if $wait {
+        # read from STDIN forever
+        message_info "Press [Enter] to leave";
+        exit for lines;
+        }
+    }

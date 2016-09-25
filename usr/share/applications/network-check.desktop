@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Network Check
+Comment=check network connectivity
+GenericName=Network Check
+Exec=network-check --wait
+Icon=network-error-symbolic
+Terminal=true
+Type=Application
+Categories=System;
+StartupNotify=true
