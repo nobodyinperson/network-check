@@ -1,8 +1,14 @@
-#!/usr/bin/env perl6
+#!/usr/bin/perl6
 my $SANDBOX = ""; # sandbox variable
 BEGIN { $SANDBOX = "$0/../../" if $?FILE ~~ m| ^^ (.*) '/' <-[/]>+ $| }
 
 # use modules
 use lib "$SANDBOX/usr/lib/network-check/perl"; # use this library folder
-use networkcheck;
+use NetworkCheck;
+
+say NetworkCheck::header;
+
+message_ok "Startup!";
+message_problem "There is a problem...";
+message_critical "This is critical!";
 

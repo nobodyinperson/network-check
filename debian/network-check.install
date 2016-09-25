@@ -1,1 +1,4 @@
-usr/*
+usr/bin/*
+usr/share/*
+usr/lib/network-check/perl/NetworkCheck.pm6
+usr/lib/network-check/functions.sh
