@@ -28,8 +28,8 @@ ok () {
 warn () {
     echo "[ ${bold}${Yel}WARN${RCol} ] $1"
     }
-error () {
-    echo "[  ${bold}${Yel}ERR${RCol} ] $1"
+crit () {
+    echo "[ ${bold}${Red}CRIT${RCol} ] $1"
     }
 
 bold () {
@@ -64,3 +64,13 @@ interface_is_wireless () {
 physical_connection () {
     ethtool "$1" 2>/dev/null | grep -qE '^\s*Link detected:\s*yes\s*$'
     }
+
+# determine router ip
+router_ip () {
+    ip route | perl -ne 'print m/default.*?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/'
+}
+
+# determine router url
+get_hostname_from_ip () {
+    host $1 | perl -e 'print grep {m/\./} m/pointer\s+(.*)\.$/ while(<>)'
+}

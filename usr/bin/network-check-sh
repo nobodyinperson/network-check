@@ -20,7 +20,7 @@ for INTERFACE in $INTERFACES;do
     if interface_is_wireless $INTERFACE;then
         TYPE="[ wireless ]"
     else
-        TYPE="   [ wired ]"
+        TYPE="[   wired  ]"
     fi
     echo "${bold}$INTERFACE${normal} $TYPE"
 done
@@ -32,6 +32,7 @@ cat <<EOT
 **********************
 EOT
 
+echo
 for INTERFACE in $INTERFACES;do
     BOLDIF=$(bold $INTERFACE)
     if interface_is_wireless $INTERFACE;then
@@ -41,7 +42,50 @@ for INTERFACE in $INTERFACES;do
     fi
     if physical_connection $INTERFACE;then
         ok "There is a physical connection on interface ${bold}$INTERFACE${normal}."
+        ANYPHYSICAL=True
     else
-        warn "There is no physical connection on interface $INTERFACE."
+        warn "There is no physical connection on interface ${bold}$INTERFACE.${normal}"
     fi
 done
+
+echo
+if test -n "$ANYPHYSICAL";then
+    ok "Fine, at least one of your network interfaces seems"
+    ok "to have a physical connection"
+else
+    crit "There is no physical connection on any interface."
+    crit "No wonder there's no connectivity :-)"
+    exit 1
+fi
+
+echo
+cat <<EOT
+**********************************
+*** ${bold}check connection to router${normal} ***
+**********************************
+EOT
+
+ROUTERIP=$(router_ip)
+
+echo
+if test -n "$ROUTERIP";then
+    ok "Router IP is $ROUTERIP"
+else
+    crit "Router IP could not be determined!"
+    exit 1
+fi
+
+# info "Trying to ping the router IP $ROUTERIP..."
+if timeout 3 ping -nqc1 $ROUTERIP 2>&1 >/dev/null;then
+    ok "Router could be ping'ed."
+else
+    crit "Router could not be ping'ed!"
+fi
+
+ROUTERURL=$(get_hostname_from_ip $ROUTERIP)
+
+if test -n "$ROUTERURL";then
+    ok "Router hostname is '$ROUTERURL'"
+else
+    warn "Router hostname could not be determined!"
+fi
