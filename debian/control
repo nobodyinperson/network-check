@@ -10,7 +10,8 @@ Vcs-Git: https://github.com/nobodyinperson/network-check.git
 
 Package: network-check
 Architecture: all
-Depends: ${misc:Depends}, rakudo
+Depends: ${misc:Depends}, rakudo, iputils-ping, net-tools, iproute2, 
+    wireless-tools, bind9-host, ethtool
 Conflicts: network-check
 Replaces: network-check
 Description: simple tool to troubleshoot network connectivity problems
